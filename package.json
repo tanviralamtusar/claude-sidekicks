@@ -1,0 +1,14 @@
+{
+  "name": "claude-sidekicks",
+  "version": "2.0.0",
+  "description": "Let Claude Code, Codex and Antigravity call each other on your existing subscriptions. No API keys, no dependencies.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  }
+}
