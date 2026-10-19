@@ -50,5 +50,12 @@ For a single image, run this in the foreground with the Bash-tool `timeout` at 6
 node "{{BIN}}/codex-image.mjs" "<image prompt>" /absolute/path/out.png
 ```
 
+When the user asks for Antigravity, use its wrapper instead. It prints the path it
+actually wrote: Antigravity usually makes JPEGs, and the extension is corrected to match.
+
+```bash
+node "{{BIN}}/agy-image.mjs" "<image prompt>" /absolute/path/out.png
+```
+
 Pass the user's image prompt verbatim; don't expand or restyle it. Add `--model` or
 `--effort` only if the user names one.

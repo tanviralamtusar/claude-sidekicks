@@ -9,6 +9,7 @@ Google). No API keys, no dependencies, just Node.
 | Claude | Codex | `bin/ask-codex.mjs` (Claude runs it from its shell) |
 | Claude | Antigravity | `bin/ask-agy.mjs` |
 | Claude | Codex image generation | `bin/codex-image.mjs` |
+| Claude | Antigravity image generation | `bin/agy-image.mjs` |
 | Codex | Claude | MCP server `server/claude-mcp.mjs`: tools `ask_claude`, `ask_claude_write` |
 | Antigravity | Claude | the same MCP server, registered with `agy mcp add` |
 
@@ -111,6 +112,7 @@ node bin/ask-agy.mjs --effort high <<'EOF'
 Review src/ for race conditions. Reply with a short list.
 EOF
 node bin/codex-image.mjs "a flat blue circle" out.png
+node bin/agy-image.mjs "a flat blue circle" out.png   # prints out.jpg if agy made a JPEG
 ```
 
 | Option | Applies to | Meaning |
@@ -156,7 +158,12 @@ node bin/codex-image.mjs "a flat blue circle" out.png
   must be self-contained.
 - **Rate limits are shared.** Codex CLI calls draw on the same ChatGPT limits as the app,
   and `agy` calls on your Google quota.
-- **Images use Codex.** They come from Codex's built-in image tool. Video isn't supported.
+- **Images use Codex or Antigravity.** They come from each CLI's built-in image tool.
+  Video isn't supported. `agy` saves images in its conversation folder
+  (`~/.gemini/antigravity-cli/brain/<id>/`), and `agy-image.mjs` copies them from there
+  itself, because headless `agy` can't run the shell command a copy would need. In print
+  mode `agy` sometimes ends its turn before the image is done; the wrapper then resumes the
+  same conversation (up to 3 rounds) until the image shows up.
 - **Pinned Codex models can break `codex exec`.** If your Codex config pins a
   `model = "..."` that has since been retired, every `codex exec` run fails with "model
   rejected". Delete that line and Codex uses its current default. The installer warns you
